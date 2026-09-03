@@ -7,11 +7,13 @@
 
 ## インストール
 
+Claude Code、Codex、Cursorなど:
+
 ```bash
 npx skills add jomatsu/doc-style-skill
 ```
 
-グローバルに追加する場合:
+インストーラーが追加先のエージェントを確認します。グローバルに追加する場合:
 
 ```bash
 npx skills add jomatsu/doc-style-skill -g
