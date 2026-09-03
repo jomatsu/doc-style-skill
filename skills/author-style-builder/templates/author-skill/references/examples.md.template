@@ -1,0 +1,40 @@
+# {{author_name}} — few-shot 例示
+
+local/example claim と example-bank から選抜。**ライセンス済みまたは合成のみ**。
+プロンプトに載せるのは正例 2〜6・負例 0〜2 まで(compile-rules.md 準拠)。
+
+## 正例
+
+### 例 1: 構造({{example_1_claim_summary}})
+
+> {{example_1_text}}
+
+ポイント: {{example_1_note}}
+
+### 例 2: 談話・レジスター({{example_2_claim_summary}})
+
+> {{example_2_text}}
+
+ポイント: {{example_2_note}}
+
+### 例 3: 局所形式({{example_3_claim_summary}})
+
+> {{example_3_text}}
+
+ポイント: {{example_3_note}}
+
+## 負例(やってはいけない)
+
+### ✗ 負例 1: {{negative_1_dimension}}(例: 文末の単調化)
+
+> {{negative_1_text}}
+
+違反理由: {{negative_1_reason}}
+<!-- 例: 「です。」が 4 連続。著者は文末形式を 2〜3 文ごとに変える -->
+
+### ✗ 負例 2: {{negative_2_dimension}}(例: カリカチュア化)
+
+> {{negative_2_text}}
+
+違反理由: {{negative_2_reason}}
+<!-- 例: 口癖「〜なわけです」を段落ごとに使用。実際の頻度は 1 記事 1〜2 回 -->

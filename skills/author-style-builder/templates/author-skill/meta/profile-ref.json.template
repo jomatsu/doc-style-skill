@@ -1,0 +1,32 @@
+{
+  "$comment": "生成スキル内のルール・例・ゲート ↔ claim_id の対応表(監査用)。本文には claim_id を出さない。observed・非 quarantined の全 claim は mappings か excluded(理由つき)のどちらかに必ず載る。",
+  "excluded": [],
+  "author_id": "{{author_id}}",
+  "profile_version": "{{profile_version}}",
+  "mappings": [
+    {
+      "target": "SKILL.md#persona",
+      "claim_ids": []
+    },
+    {
+      "target": "SKILL.md#always_on_rules",
+      "claim_ids": []
+    },
+    {
+      "target": "references/style-rules.md#<mode_id>",
+      "claim_ids": []
+    },
+    {
+      "target": "references/examples.md#example-1",
+      "claim_ids": []
+    },
+    {
+      "target": "references/checklist.md#ambiguous",
+      "claim_ids": []
+    },
+    {
+      "target": "lint-config.json#G1_distribution",
+      "claim_ids": []
+    }
+  ]
+}

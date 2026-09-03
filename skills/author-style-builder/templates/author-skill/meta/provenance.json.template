@@ -1,0 +1,30 @@
+{
+  "$comment": "生成元の追跡情報。撤回時のカスケード削除・監査に使う。生コーパスは含めない。",
+  "author_id": "{{author_id}}",
+  "rights_scope": "{{rights_scope}}",
+  "consent_record": "{{consent_record_ref}}",
+  "generated_at": "{{generated_at}}",
+  "generator": {
+    "meta_skill": "author-style-builder",
+    "meta_skill_version": "{{meta_skill_version}}"
+  },
+  "source": {
+    "profile_version": "{{profile_version}}",
+    "profile_hash": "{{profile_hash}}",
+    "corpus_manifest_hash": "{{manifest_hash}}",
+    "article_count": null,
+    "total_chars": null,
+    "strata": []
+  },
+  "evaluation": {
+    "holdout_opened_at": null,
+    "release_gates_passed": [],
+    "consumed_models_tested": []
+  },
+  "lineage": {
+    "$comment": "改訂は候補として記録し、人間承認で昇格。本番を直接編集しない",
+    "parent_version": null,
+    "approved_by": null,
+    "approved_at": null
+  }
+}

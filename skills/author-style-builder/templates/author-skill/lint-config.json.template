@@ -1,0 +1,100 @@
+{
+  "$comment": "style_lint.py が読む閾値設定。値は著者較正 split の記事レベル分布から算出する(普遍閾値は存在しない)。warn 帯 = 中央値±IQR、hard 帯 = 著者実記事の極値(小 n)または記事レベル α=0.01 の Bonferroni 分位点(大 n)。値はフル精度で保存し丸めない。算出方法・日時・対象コーパスハッシュ・解析器・特徴スキーマを calibration に記録。",
+  "author_id": "{{author_id}}",
+  "profile_version": "{{profile_version}}",
+  "profile_class": "production",
+  "builder_status": "experimental",
+  "migration": null,
+  "calibration": {
+    "method": "較正 split {{dev_article_count}} 記事の記事レベル分布(holdout は含めない)",
+    "split": null,
+    "analyzer": "{{analyzer_version}}",
+    "analyzer_meta": null,
+    "feature_schema": null,
+    "channel_registry_version": null,
+    "policy": null,
+    "warnings": [],
+    "date": "{{calibration_date}}",
+    "corpus_hash": "{{corpus_hash}}"
+  },
+  "length_strata": {
+    "short": [0, 800],
+    "medium": [800, 3000],
+    "long": [3000, null]
+  },
+  "gates": {
+    "G1_distribution": {
+      "$comment": "median_range = warn 帯、median_hard_range = 著者極値の hard 帯(外なら fail)。max_warn/max_hard = 最長文の p95 / 極値。n_sents < min_sents の入力は warn 止まり(degraded)",
+      "sent_len_chars": {"median_range": [null, null], "median_hard_range": [null, null], "max_warn": null, "max_hard": null, "max_rule": null},
+      "para_len_sents": {"median_range": [null, null], "median_hard_range": [null, null]},
+      "comma_per_sent": {"median_range": [null, null], "median_hard_range": [null, null]},
+      "min_sents": 10
+    },
+    "G2_sentence_end": {
+      "$comment": "form_distribution = warn 帯、form_hard_range = 著者極値。cap = 記事分布の p95(超過は warn)、hard cap = 著者極値ポリシー(超過で fail)。n_sents < min_sents は warn 止まり。解析器モードが較正と違えば degraded(analyzer_mode_mismatch)",
+      "form_distribution": {},
+      "form_hard_range": {},
+      "max_consecutive_same_ending": 3,
+      "max_consecutive_hard_cap": 6,
+      "max_consecutive_rule": null,
+      "min_sents": 10
+    },
+    "G3_orthography": {
+      "$comment": "*_ratio = warn 帯、*_hard_range = 著者極値。n_chars < min_chars は warn 止まり",
+      "kanji_ratio": [null, null],
+      "kanji_hard_range": [null, null],
+      "hiragana_ratio": [null, null],
+      "hiragana_hard_range": [null, null],
+      "katakana_ratio": [null, null],
+      "katakana_hard_range": [null, null],
+      "latin_ratio": [null, null],
+      "latin_hard_range": [null, null],
+      "min_chars": 300,
+      "orthography_rules": []
+    },
+    "G4_vocabulary": {
+      "$comment": "_min = p05(未満は warn)、_hard_min = 著者極値ポリシー(未満で fail)。func_word_rate_range/_hard_range は機能語率の warn/hard 帯。POS 依存のため fallback では skipped。n_tokens < min_tokens は warn 止まり",
+      "ttr_window_min": null,
+      "ttr_window_hard_min": null,
+      "ttr_window_rule": null,
+      "distinct_2_min": null,
+      "distinct_2_hard_min": null,
+      "distinct_2_rule": null,
+      "func_word_rate_range": [null, null],
+      "func_word_rate_hard_range": [null, null],
+      "min_tokens": 100
+    },
+    "G5_caricature": {
+      "$comment": "特徴マーカーのローカルウィンドウ内出現上限。markers は人間承認の validator claim(metric=caricature_markers)からのみ。空なら G5 は skipped(pass ではない)。protected_spans は例外",
+      "markers": [],
+      "configured": false,
+      "markers_source": null,
+      "window_chars": 1000,
+      "max_per_window": 2,
+      "protected_spans": ["引用", "専門用語", "強調の意図的反復"]
+    },
+    "G6_copy": {
+      "$comment": "ハードゲート。スタイルスコアで補償不可。stoplist_patterns は偽陽性除外の正規表現(URL・固有名詞・API名・定型句を必要に応じて追加)",
+      "exact_match_max_chars": 25,
+      "char_ngram_overlap_max": null,
+      "minhash_similarity_max": null,
+      "embedding_similarity_max": null,
+      "$comment_paragraph": "段落単位の局所重複: 正規化散文の段落 5-gram がソース記事に含まれる割合(containment)。0.8 は intake の近似重複判定と同じ工学的既定値で、コーパス較正値ではない",
+      "paragraph_containment_max": null,
+      "paragraph_min_chars": 30,
+      "stoplist_patterns": ["https?://\\S+"]
+    },
+    "G7_morphology": {
+      "$comment": "形態素チャネル(validator 専用)。参照分布と LOAO 較正閾値は reference_file に置く。max_severity=warn のチャネルは hard fail しない。合成スコアは作らない",
+      "enabled": false,
+      "reference_file": "lint-morphology.json",
+      "calibration": {},
+      "channels": {}
+    }
+  },
+  "reporting": {
+    "$comment": "ゲートは合成スコアにせず個別に pass/warn/fail を報告",
+    "composite_score": false,
+    "stratify_by_length": true
+  }
+}
