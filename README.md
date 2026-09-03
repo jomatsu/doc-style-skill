@@ -19,12 +19,6 @@ npx skills add jomatsu/doc-style-skill
 npx skills add jomatsu/doc-style-skill -g
 ```
 
-Piのpackageとして追加する場合:
-
-```bash
-pi install https://github.com/jomatsu/doc-style-skill
-```
-
 インストール後、新しいエージェントセッションを開始してください。
 
 ## 使い方
@@ -34,12 +28,6 @@ pi install https://github.com/jomatsu/doc-style-skill
 ```text
 自分のブログ https://example.com と
 Zenn https://zenn.dev/your-name の記事から文体スキルを作ってください。
-```
-
-Piから明示的に呼び出す場合:
-
-```text
-/skill:author-style-builder 自分のブログ https://example.com から文体スキルを作ってください。
 ```
 
 エージェントが記事一覧の取得、本文の整理、文体分析、skillの生成と検証まで進めます。
